@@ -15,7 +15,15 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int menu_settings=0x7f070000;
+        public static final int btn_shortener=0x7f070001;
+        public static final int menu_settings=0x7f070008;
+        public static final int r_bitly=0x7f070005;
+        public static final int r_googl=0x7f070006;
+        public static final int r_migreme=0x7f070003;
+        public static final int r_tiny=0x7f070004;
+        public static final int rg_server=0x7f070002;
+        public static final int txt_url=0x7f070000;
+        public static final int txt_url_result=0x7f070007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
