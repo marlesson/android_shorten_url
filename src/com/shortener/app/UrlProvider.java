@@ -1,4 +1,4 @@
-package com.shortenURL;
+package com.shortener.app;
 
 import android.content.ContentProvider;    
 import android.net.Uri;    
