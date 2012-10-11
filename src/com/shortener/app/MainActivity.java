@@ -5,15 +5,12 @@ import java.io.IOException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,10 +23,10 @@ public class MainActivity extends Activity {
 	private Button 		btn_shortener;
 	private EditText 	txt_url;
 	private Button 		btn_copy;
+	private Button 		btn_openbrowser;
 	private RadioGroup 	rg_server;
 	private EditText 	txt_url_result;
 	private Dialog 		mDialog;
-    private MyAsyncTask mAsyncTask;
 
 
     @Override
@@ -40,6 +37,7 @@ public class MainActivity extends Activity {
         btn_shortener 	= (Button) 	 findViewById(R.id.btn_shortener);
         txt_url 		= (EditText) findViewById(R.id.txt_url);
         btn_copy        = (Button)   findViewById(R.id.btn_copy);
+        btn_openbrowser = (Button)   findViewById(R.id.btn_openbrowser);
         rg_server 		= (RadioGroup)   findViewById(R.id.rg_server);
         txt_url_result  = (EditText)   findViewById(R.id.txt_url_result);
         
@@ -50,40 +48,42 @@ public class MainActivity extends Activity {
 				txt_url_result.setText("");
 				new MyAsyncTask().execute();
 			}
-
 		});
         
-        btn_copy.setOnClickListener(new OnClickListener() {
+        btn_openbrowser.setOnClickListener(new OnClickListener() {
         	public void onClick(View v) {
         		Uri uri = Uri.parse(txt_url_result.getText().toString());
         		Intent it = new Intent(Intent.ACTION_VIEW, uri);
         		MainActivity.this.startActivity(it);        		
-//        		AlertDialog.Builder mensagem = new
-//				AlertDialog.Builder(MainActivity.this);
-//				mensagem.setTitle("Message");
-//				mensagem.setMessage("Ctrl+C");
-//				mensagem.setNeutralButton("OK", null);
-//				mensagem.show();
 			}
         });          
+        
+        btn_copy.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        			
+			}
+        });        
     }
 
     
-    private String requestServer(int server) throws IOException{
+    @TargetApi(9)
+	private String requestServer(int server) throws IOException{
     	String result = null;
+    	String url    = txt_url.getText().toString();
+    	
+		if(url.isEmpty()){
+			return "";
+		}
     	
 		switch (server) {
 	    case R.id.r_migreme:
-	    	result = Migreme.urlShort(txt_url.getText().toString());
+	    	result = Migreme.urlShort(url);
 	        break;
 	    case R.id.r_tiny:
-	    	result = "tiny";
+	    	result = TinyUrl.urlShort(url);
 	        break;
 	    case R.id.r_bitly:
-	    	result = "bitly";
-	        break;
-	    case R.id.r_googl:
-	    	result = "Google";
+	    	result = Bitly.urlShort(url);
 	        break;
 		}		
 		
@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
         
         protected String doInBackground(String... arg) {
         	String result = null;
-
 			try {
 				result = requestServer(rg_server.getCheckedRadioButtonId());
 			} catch (IOException e) {

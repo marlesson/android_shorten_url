@@ -23,7 +23,7 @@
             android:id="@+id/btn_shortener"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Encurtar" />
+            android:text="@string/shortener" />
 
         <RadioGroup
             android:id="@+id/rg_server"
@@ -48,12 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="bitly.com" />
-            
-            <RadioButton
-                android:id="@+id/r_googl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="goo.gl" />            
+     
         </RadioGroup>
 
         <EditText
@@ -61,13 +56,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10" />
-
-        <Button
-            android:id="@+id/btn_copy"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Abrir Navegador" />
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btn_openbrowser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/open_browser" />
+
+            <Button
+                android:id="@+id/btn_copy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/copy" />
 
+        </LinearLayout>
+        
     </LinearLayout>
 
 </RelativeLayout>
