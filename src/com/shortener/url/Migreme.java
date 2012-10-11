@@ -11,7 +11,7 @@ public class Migreme {
 	static String URL_API = "http://migre.me/api.txt?url=";
 	
 	public static String urlShort(String url_shorten) throws IOException{
-		String returnUrl = "";
+		StringBuilder  returnUrl = new StringBuilder();
 		URL url = new URL(URL_API.concat(url_shorten));
 		URLConnection urlConnection = url.openConnection();
 
@@ -19,13 +19,10 @@ public class Migreme {
 		
 		String decodedString;
         while ((decodedString = in.readLine()) != null) {
-        	returnUrl.concat(decodedString);
+        	returnUrl.append(decodedString);
 
         }
         in.close();
-		return returnUrl;
+		return returnUrl.toString();
 	}
-	   
-
-
 }
